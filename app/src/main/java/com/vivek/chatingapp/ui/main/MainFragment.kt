@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.vivek.chatingapp.R
 import com.vivek.chatingapp.databinding.MainFragmentBinding
 import com.vivek.chatingapp.ui.registration.RegistrationActivity
@@ -35,6 +36,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun clickListener(){
         binding.ivSignOut.setOnClickListener { signOut() }
+        binding.fabNewChat.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_usersFragment)
+        }
     }
 
     private fun signOut(){

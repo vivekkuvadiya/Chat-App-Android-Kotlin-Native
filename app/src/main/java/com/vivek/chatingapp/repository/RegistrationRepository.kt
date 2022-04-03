@@ -19,7 +19,7 @@ class RegistrationRepository @Inject constructor(private val fireStore: Firebase
                 .await()
             Resource.Success(await)
         }catch (e:Exception){
-            Resource.Error(e.localizedMessage)
+            Resource.Error(e.message?:"An Unknown Error Occurred")
         }
     }
 
@@ -38,7 +38,7 @@ class RegistrationRepository @Inject constructor(private val fireStore: Firebase
             }
 
         }catch (e:Exception){
-            Resource.Error(e.localizedMessage)
+            Resource.Error(e.message?:"An Unknown Error Occurred")
         }
     }
 
