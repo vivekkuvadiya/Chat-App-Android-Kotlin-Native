@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.vivek.chatingapp.databinding.ActivityRegistrationBinding
+import com.vivek.chatingapp.ui.main.MainActivity
 import com.vivek.chatingapp.utils.Constant
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

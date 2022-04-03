@@ -1,4 +1,4 @@
-package com.vivek.chatingapp.ui.registration
+package com.vivek.chatingapp.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

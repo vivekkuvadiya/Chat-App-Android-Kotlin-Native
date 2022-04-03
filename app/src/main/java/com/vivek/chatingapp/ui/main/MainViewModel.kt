@@ -1,4 +1,4 @@
-package com.vivek.chatingapp.ui.registration.main
+package com.vivek.chatingapp.ui.main
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData

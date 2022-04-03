@@ -25,7 +25,7 @@
         </activity>
 
         <activity
-            android:name=".ui.registration.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"/>
 
         <service
