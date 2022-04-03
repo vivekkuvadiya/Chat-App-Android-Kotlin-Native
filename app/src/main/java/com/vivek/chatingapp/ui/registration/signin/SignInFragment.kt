@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.vivek.chatingapp.ui.registration.MainActivity
+import com.vivek.chatingapp.ui.main.MainActivity
 import com.vivek.chatingapp.R
 import com.vivek.chatingapp.databinding.SignInFragmentBinding
 import com.vivek.chatingapp.utils.*
@@ -36,6 +36,7 @@ class SignInFragment : Fragment(R.layout.sign_in_fragment) {
                 is Resource.Success -> {
                     loading(false)
                     requireContext().toast("Sign In Successfully!")
+                    viewModel.clearSignInData()
                     val intent = Intent(requireActivity(), MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -46,9 +47,13 @@ class SignInFragment : Fragment(R.layout.sign_in_fragment) {
                     it.message?.let {
                         requireContext().toast(it)
                     }
+                    viewModel.clearSignInData()
                 }
                 is Resource.Loading -> {
                     loading(true)
+                }
+                is Resource.Empty -> {
+
                 }
             }
         }

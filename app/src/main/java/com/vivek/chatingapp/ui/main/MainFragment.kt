@@ -1,4 +1,4 @@
-package com.vivek.chatingapp.ui.registration.main
+package com.vivek.chatingapp.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.vivek.chatingapp.R
 import com.vivek.chatingapp.databinding.MainFragmentBinding
-import com.vivek.chatingapp.ui.registration.MainActivity
 import com.vivek.chatingapp.ui.registration.RegistrationActivity
 import com.vivek.chatingapp.utils.decodeToBitmap
 import com.vivek.chatingapp.utils.toast

@@ -49,4 +49,10 @@ class SignInViewModel @Inject constructor(
 
     }
 
+    fun clearSignInData(){
+        if (_signIn.value != null){
+            _signIn.postValue(Resource.Empty())
+        }
+    }
+
 }

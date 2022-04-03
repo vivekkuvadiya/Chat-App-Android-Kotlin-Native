@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/primary"
-    tools:context=".ui.registration.main.MainFragment">
+    tools:context=".ui.main.MainFragment">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/ivProfile"
