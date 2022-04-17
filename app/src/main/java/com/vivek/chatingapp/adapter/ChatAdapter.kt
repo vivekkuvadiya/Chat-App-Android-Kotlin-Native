@@ -31,6 +31,7 @@ class ChatAdapter(
             binding.apply {
                 tvMessage.text = message.message
                 tvDateTime.text = message.dateTime
+
             }
         }
 
