@@ -21,7 +21,8 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
     private lateinit var binding: ChatFragmentBinding
     private val viewModel: ChatViewModel by viewModels()
     private lateinit var user: User
-    private lateinit var chatAdapter:ChatAdapter
+    private lateinit var chatAdapter: ChatAdapter
+
     @Inject
     lateinit var pref: SharedPreferences
 
@@ -48,10 +49,18 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     private fun setClickListener() {
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+        binding.ivSend.setOnClickListener {
+            if (binding.etMessage.text.isNullOrBlank() && binding.etMessage.text.toString().trim().length<0)
+                return@setOnClickListener
+            viewModel.sendMessage(binding.etMessage.text.trim().toString(),user.id)
+            binding.etMessage.text.clear()
+        }
     }
 
     private fun setRecyclerview() {
-        chatAdapter = ChatAdapter(pref.getString(Constant.KEY_USER_ID,null).toString(),pref.getString(Constant.KEY_IMAGE,null).toString().decodeToBitmap(), emptyList())
+        chatAdapter = ChatAdapter(pref.getString(Constant.KEY_USER_ID, null).toString(),
+            pref.getString(Constant.KEY_IMAGE, null).toString().decodeToBitmap(),
+            emptyList())
         binding.rvChat.apply {
             adapter = chatAdapter
         }

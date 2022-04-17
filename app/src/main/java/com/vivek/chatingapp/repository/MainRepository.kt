@@ -49,4 +49,11 @@ class MainRepository @Inject constructor(private val fireStore: FirebaseFirestor
         }
     }
 
+    suspend fun sendMessage(message:HashMap<String,Any>):Boolean = try {
+        fireStore.collection(Constant.KEY_COLLECTION_CHAT).document().set(message).await()
+        true
+    }catch (e:Exception){
+        false
+    }
+
 }
