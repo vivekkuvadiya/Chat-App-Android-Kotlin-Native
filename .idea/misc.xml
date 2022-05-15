@@ -3,15 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable-v24/bg_send_message.xml" value="0.2215" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/background_chat_input.xml" value="0.2215" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/background_content_bottom.xml" value="0.2215" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/background_content_top.xml" value="0.2215" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/background_icon.xml" value="0.2215" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/background_image.xml" value="0.2215" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/background_input.xml" value="0.2215" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/bg_received_message.xml" value="0.2215" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/bg_send_message.xml" value="0.2215" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/drawable/ic_info.xml" value="0.2215" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/activity_registration.xml" value="0.3359375" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/activity_sign_in.xml" value="0.3359375" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/chat_fragment.xml" value="0.329417773237998" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/item_received_message.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/item_send_message.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/item_user_list.xml" value="0.33" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/main_fragment.xml" value="0.33" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/sign_in_fragment.xml" value="0.25" />
         <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/sign_up_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/Kotlin Project/ChatApp/app/src/main/res/layout/users_fragment.xml" value="0.25" />
       </map>
     </option>
   </component>

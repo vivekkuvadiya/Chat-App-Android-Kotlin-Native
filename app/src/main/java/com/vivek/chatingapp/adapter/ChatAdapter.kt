@@ -2,6 +2,7 @@ package com.vivek.chatingapp.adapter
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vivek.chatingapp.databinding.ItemReceivedMessageBinding
@@ -9,11 +10,12 @@ import com.vivek.chatingapp.databinding.ItemSendMessageBinding
 import com.vivek.chatingapp.model.ChatMessage
 import com.vivek.chatingapp.utils.Constant.VIEW_TYPE_RECEIVED
 import com.vivek.chatingapp.utils.Constant.VIEW_TYPE_SEND
+import java.util.*
 
 class ChatAdapter(
     private val senderId: String,
     private val profileImage: Bitmap,
-    private val chatMessages: List<ChatMessage>,
+    private val chatMessages: List<ChatMessage>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -48,6 +50,18 @@ class ChatAdapter(
             }
         }
 
+    }
+
+    fun addMessage(newMessage: List<ChatMessage>, rvChat: RecyclerView){
+        chatMessagesList.addAll(newMessage)
+        chatMessagesList.sortBy { it.date }
+        if (chatMessagesList.isEmpty()){
+
+        }else{
+            notifyItemRangeInserted(chatMessagesList.size,newMessage.size)
+            rvChat.smoothScrollToPosition(chatMessagesList.size-1)
+        }
+        rvChat.visibility = View.VISIBLE
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

@@ -117,13 +117,14 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
-        android:padding="@dimen/_20sdp"
-        android:visibility="gone"
+        android:padding="@dimen/_15sdp"
+        android:visibility="visible"
+        app:stackFromEnd="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewSupport"
+        app:layout_constraintTop_toBottomOf="@+id/headerBg"
         tools:visibility="visible" />
 
     <ProgressBar

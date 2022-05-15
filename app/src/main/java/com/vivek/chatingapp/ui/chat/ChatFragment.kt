@@ -6,9 +6,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vivek.chatingapp.R
 import com.vivek.chatingapp.adapter.ChatAdapter
 import com.vivek.chatingapp.databinding.ChatFragmentBinding
+import com.vivek.chatingapp.model.ChatMessage
 import com.vivek.chatingapp.model.User
 import com.vivek.chatingapp.utils.Constant
 import com.vivek.chatingapp.utils.decodeToBitmap
@@ -38,6 +40,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
         binding.tvName.text = user.name
 
+        observeChat()
 
     }
 
@@ -47,12 +50,29 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         }
     }
 
+    private fun observeChat() {
+        viewModel.eventListener(user.id, object : ChatObserver {
+            override fun observeChat(newChat: List<ChatMessage>) {
+                if (newChat.isNotEmpty()) {
+                    chatAdapter.addMessage(newChat, binding.rvChat)
+
+                }
+                binding.pb.visibility = View.GONE
+            }
+        })
+
+    }
+
     private fun setClickListener() {
+
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+
         binding.ivSend.setOnClickListener {
-            if (binding.etMessage.text.isNullOrBlank() && binding.etMessage.text.toString().trim().length<0)
+            if (binding.etMessage.text.isNullOrBlank() && binding.etMessage.text.toString()
+                    .trim().length < 0
+            )
                 return@setOnClickListener
-            viewModel.sendMessage(binding.etMessage.text.trim().toString(),user.id)
+            viewModel.sendMessage(binding.etMessage.text.trim().toString(), user.id)
             binding.etMessage.text.clear()
         }
     }
@@ -63,6 +83,11 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
             emptyList())
         binding.rvChat.apply {
             adapter = chatAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
+    }
+
+    interface ChatObserver {
+        fun observeChat(newChat: List<ChatMessage>)
     }
 }

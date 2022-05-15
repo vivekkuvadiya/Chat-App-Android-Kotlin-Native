@@ -1,5 +1,7 @@
 package com.vivek.chatingapp.repository
 
+import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.messaging.FirebaseMessaging
@@ -54,6 +56,18 @@ class MainRepository @Inject constructor(private val fireStore: FirebaseFirestor
         true
     }catch (e:Exception){
         false
+    }
+
+
+    fun observeChat(userId: String, receiverId:String,listener:EventListener<QuerySnapshot>){
+        fireStore.collection(Constant.KEY_COLLECTION_CHAT)
+            .whereEqualTo(Constant.KEY_SENDER_ID,userId)
+            .whereEqualTo(Constant.KEY_RECEIVER_ID,receiverId)
+            .addSnapshotListener(listener)
+        fireStore.collection(Constant.KEY_COLLECTION_CHAT)
+            .whereEqualTo(Constant.KEY_SENDER_ID,receiverId)
+            .whereEqualTo(Constant.KEY_RECEIVER_ID,userId)
+            .addSnapshotListener(listener)
     }
 
 }
