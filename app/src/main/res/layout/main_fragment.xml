@@ -59,7 +59,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/ivProfile">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRecentConversation"
+            android:layout_width="match_parent"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:padding="@dimen/_15sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="match_parent"/>
+
+        <ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/_24sdp"/>
+
+    </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNewChat"

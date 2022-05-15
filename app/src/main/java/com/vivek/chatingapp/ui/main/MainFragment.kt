@@ -7,17 +7,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.vivek.chatingapp.R
+import com.vivek.chatingapp.adapter.RecentConversationsAdapter
 import com.vivek.chatingapp.databinding.MainFragmentBinding
 import com.vivek.chatingapp.ui.registration.RegistrationActivity
 import com.vivek.chatingapp.utils.decodeToBitmap
 import com.vivek.chatingapp.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.main_fragment) {
 
     private lateinit var binding:MainFragmentBinding
     private val viewModel:MainViewModel by viewModels()
+    private lateinit var adapter:RecentConversationsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,6 +28,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
         clickListener()
         updateDetails()
+        setRecyclerview()
 
 
     }
@@ -39,6 +43,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         binding.fabNewChat.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_usersFragment)
         }
+    }
+
+    private fun setRecyclerview(){
+        adapter = RecentConversationsAdapter()
+        binding.rvRecentConversation.apply { adapter = this@MainFragment.adapter }
     }
 
     private fun signOut(){
