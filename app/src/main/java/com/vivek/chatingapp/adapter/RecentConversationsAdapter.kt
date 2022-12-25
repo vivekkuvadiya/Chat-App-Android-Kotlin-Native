@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vivek.chatingapp.databinding.ItemUserListBinding
+import com.vivek.chatingapp.databinding.ItemUserListRecentConversionBinding
 import com.vivek.chatingapp.model.ChatMessage
 import com.vivek.chatingapp.utils.decodeToBitmap
 
@@ -14,7 +15,7 @@ class RecentConversationsAdapter:
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ConversationViewHolder(ItemUserListBinding.inflate(LayoutInflater.from(parent.context)))
+        ConversationViewHolder(ItemUserListRecentConversionBinding.inflate(LayoutInflater.from(parent.context)))
 
     override fun onBindViewHolder(holder: ConversationViewHolder, position: Int) {
         holder.setData(recentConversationList[position])
@@ -22,13 +23,16 @@ class RecentConversationsAdapter:
 
     override fun getItemCount() = recentConversationList.size
 
-    inner class ConversationViewHolder(val binding: ItemUserListBinding) :
+    inner class ConversationViewHolder(private val binding: ItemUserListRecentConversionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun setData(chatMessage: ChatMessage) {
-            binding.ivProfile.setImageBitmap(chatMessage.conversionImage.decodeToBitmap())
-            binding.tvName.text = chatMessage.conversionName
-            binding.tvEmail.text = chatMessage.message
+            with(binding){
+                ivProfile.setImageBitmap(chatMessage.conversionImage?.decodeToBitmap())
+                tvName.text = chatMessage.conversionName
+                tvRecentMessage.text = chatMessage.message
+            }
+
         }
 
     }

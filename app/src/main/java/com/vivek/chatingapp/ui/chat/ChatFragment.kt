@@ -58,9 +58,13 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
                 }
                 binding.pb.visibility = View.GONE
+                viewModel.conversionId.isEmpty().let {
+                    if(chatAdapter.getMessageSize() != 0){
+                        viewModel.checkForConversation(user.id)
+                    }
+                }
             }
         })
-
     }
 
     private fun setClickListener() {
@@ -72,7 +76,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
                     .trim().length < 0
             )
                 return@setOnClickListener
-            viewModel.sendMessage(binding.etMessage.text.trim().toString(), user.id)
+            viewModel.sendMessage(binding.etMessage.text.trim().toString(), user)
             binding.etMessage.text.clear()
         }
     }

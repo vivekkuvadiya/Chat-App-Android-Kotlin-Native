@@ -36,7 +36,6 @@ class ChatAdapter(
 
             }
         }
-
     }
 
     class ReceivedMessageViewHolder(val binding: ItemReceivedMessageBinding) :
@@ -63,6 +62,8 @@ class ChatAdapter(
         }
         rvChat.visibility = View.VISIBLE
     }
+
+    fun getMessageSize() = chatMessagesList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_SEND) {
