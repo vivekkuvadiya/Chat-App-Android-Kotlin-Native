@@ -108,4 +108,13 @@ class MainRepository @Inject constructor(
             .await()
     }
 
+    fun observeRecentConversation(id:String, listener: EventListener<QuerySnapshot>) {
+        fireStore.collection(Constant.KEY_COLLECTION_CONVERSATIONS)
+            .whereEqualTo(Constant.KEY_SENDER_ID, id)
+            .addSnapshotListener(listener)
+        fireStore.collection(Constant.KEY_COLLECTION_CONVERSATIONS)
+            .whereEqualTo(Constant.KEY_RECEIVER_ID, id)
+            .addSnapshotListener(listener)
+    }
+
 }

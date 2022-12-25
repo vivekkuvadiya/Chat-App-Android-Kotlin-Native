@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_usersFragment"
             app:destination="@id/usersFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/usersFragment"

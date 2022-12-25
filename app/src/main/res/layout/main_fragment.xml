@@ -64,20 +64,21 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecentConversation"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:overScrollMode="never"
-            android:visibility="gone"
-            tools:visibility="visible"
+            tools:listitem="@layout/item_user_list_recent_conversion"
             android:padding="@dimen/_15sdp"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_height="match_parent"/>
+            tools:visibility="visible" />
 
         <ProgressBar
             android:id="@+id/pb"
             android:layout_width="@dimen/_24sdp"
-            android:layout_gravity="center"
-            android:layout_height="@dimen/_24sdp"/>
+            android:layout_height="@dimen/_24sdp"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 

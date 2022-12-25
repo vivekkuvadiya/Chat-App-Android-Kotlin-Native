@@ -10,6 +10,7 @@ import com.vivek.chatingapp.R
 import com.vivek.chatingapp.adapter.RecentConversationsAdapter
 import com.vivek.chatingapp.databinding.MainFragmentBinding
 import com.vivek.chatingapp.ui.registration.RegistrationActivity
+import com.vivek.chatingapp.utils.Constant
 import com.vivek.chatingapp.utils.decodeToBitmap
 import com.vivek.chatingapp.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +31,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         updateDetails()
         setRecyclerview()
 
+        viewModel.recentMessageEventListener(adapter.getRecentList()) {
+            adapter.updateRecentConversion(it)
+            binding.rvRecentConversation.visibility = View.VISIBLE
+            binding.pb.visibility = View.GONE
+            binding.rvRecentConversation.smoothScrollToPosition(0)
+        }
 
     }
 
@@ -47,7 +54,15 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun setRecyclerview(){
         adapter = RecentConversationsAdapter()
-        binding.rvRecentConversation.apply { adapter = this@MainFragment.adapter }
+        binding.rvRecentConversation.apply {
+            setHasFixedSize(true)
+            adapter = this@MainFragment.adapter
+        }
+        adapter.onClickConversation = { user ->
+            val bundle = Bundle()
+            bundle.putSerializable(Constant.KEY_USER, user)
+            findNavController().navigate(R.id.action_mainFragment_to_chatFragment, bundle)
+        }
     }
 
     private fun signOut(){

@@ -5,9 +5,9 @@ import java.util.*
 data class ChatMessage(
     val senderId:String,
     val receiverId:String,
-    val message:String,
+    var message:String,
     val dateTime:String,
-    val date:Date,
+    var date:Date,
     val conversionId:String? = null,
     val conversionName:String? = null,
     val conversionImage:String? = null
