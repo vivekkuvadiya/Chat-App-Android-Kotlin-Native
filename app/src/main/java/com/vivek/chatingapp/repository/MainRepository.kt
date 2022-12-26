@@ -1,10 +1,8 @@
 package com.vivek.chatingapp.repository
 
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.messaging.FirebaseMessaging
 import com.vivek.chatingapp.utils.Constant
 import com.vivek.chatingapp.utils.Resource
@@ -115,6 +113,13 @@ class MainRepository @Inject constructor(
         fireStore.collection(Constant.KEY_COLLECTION_CONVERSATIONS)
             .whereEqualTo(Constant.KEY_RECEIVER_ID, id)
             .addSnapshotListener(listener)
+    }
+
+    fun listenerAvailabilityOfReceiver(receiverId: String,listener: EventListener<DocumentSnapshot>){
+        fireStore.collection(Constant.KEY_COLLECTION_USERS)
+            .document(receiverId)
+            .addSnapshotListener(listener)
+
     }
 
 }

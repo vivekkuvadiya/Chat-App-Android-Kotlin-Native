@@ -110,6 +110,20 @@
         android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintTop_toBottomOf="@+id/ivBack" />
 
+    <TextView
+        android:id="@+id/tvAvailability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/online"
+        android:background="#008000"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/headerBg"
+        android:padding="@dimen/_2sdp"
+        android:textSize="@dimen/_10ssp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChat"
         android:layout_width="0dp"
@@ -120,11 +134,11 @@
         android:padding="@dimen/_15sdp"
         android:visibility="visible"
         app:stackFromEnd="true"
+        app:layout_constraintTop_toBottomOf="@+id/tvAvailability"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBg"
         tools:visibility="visible" />
 
     <ProgressBar

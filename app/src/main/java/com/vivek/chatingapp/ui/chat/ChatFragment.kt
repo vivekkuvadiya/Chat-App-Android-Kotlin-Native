@@ -3,6 +3,7 @@ package com.vivek.chatingapp.ui.chat
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -93,5 +94,13 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     interface ChatObserver {
         fun observeChat(newChat: List<ChatMessage>)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.listenerAvailabilityOfReceiver(user.id){availability,fcm ->
+            binding.tvAvailability.isVisible = availability
+            user.token = fcm
+        }
     }
 }

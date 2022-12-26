@@ -16,3 +16,4 @@ local.properties
 /app/google-services.json
 /.idea/misc.xml
 /.idea/
+/app/src/main/res/values/cred.xml

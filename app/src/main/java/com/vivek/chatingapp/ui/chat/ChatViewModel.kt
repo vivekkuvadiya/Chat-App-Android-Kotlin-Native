@@ -5,9 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.QuerySnapshot
 import com.vivek.chatingapp.model.ChatMessage
 import com.vivek.chatingapp.model.User
 import com.vivek.chatingapp.repository.MainRepository
@@ -26,6 +25,7 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
 
     var conversionId = ""
+    private var isReceiverAvailable = false
 
     fun sendMessage(message: String, receiverUser: User) {
 
@@ -112,6 +112,25 @@ class ChatViewModel @Inject constructor(
             conversionId = documentSnapshot?.id.toString()
         }
 
+    }
+
+    fun listenerAvailabilityOfReceiver(receiverId: String, availability:(Boolean,String)->Unit){
+        repository.listenerAvailabilityOfReceiver(receiverId
+        ) { value, error ->
+
+            var fcm = ""
+            if (error != null)
+                return@listenerAvailabilityOfReceiver
+            if (value != null){
+                if (value.getLong(Constant.KEY_AVAILABILITY) != null){
+                    val availability = Objects.requireNonNull(value.getLong(Constant.KEY_AVAILABILITY))?.toInt()
+                    isReceiverAvailable = availability == 1
+
+                }
+                fcm = value.getString(Constant.KEY_FCM_TOKEN).toString()
+            }
+            availability(isReceiverAvailable,fcm)
+        }
     }
 
 

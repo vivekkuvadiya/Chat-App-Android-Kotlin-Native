@@ -26,5 +26,10 @@ object Constant {
     const val KEY_RECEIVER_IMAGE = "receiverImage"
     const val KEY_LAST_MESSAGE = "lastMessage"
     const val KEY_AVAILABILITY = "availability"
+    const val FCM_BASE_URL = "https://fcm.googleapis.com/fcm/"
+    const val REMOTE_MSG_AUTHORIZATION = "Authorization"
+    const val REMOTE_MSG_CONTENT_TYPE = "Content-Type"
+    const val REMOTE_MSG_DATA = "data"
+    const val REMOTE_MSG_REGISTRATION_IDS = "registration_ids"
 
 }
