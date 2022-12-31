@@ -4,16 +4,19 @@ import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.vivek.chatingapp.model.ChatMessage
+import com.vivek.chatingapp.model.Data
+import com.vivek.chatingapp.model.MessageBody
 import com.vivek.chatingapp.model.User
 import com.vivek.chatingapp.repository.MainRepository
 import com.vivek.chatingapp.utils.Constant
 import com.vivek.chatingapp.utils.getReadableDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONObject
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.HashMap
@@ -49,12 +52,42 @@ class ChatViewModel @Inject constructor(
                     put(Constant.KEY_SENDER_IMAGE,pref.getString(Constant.KEY_IMAGE,null).toString())
                     put(Constant.KEY_RECEIVER_ID,receiverUser.id)
                     put(Constant.KEY_RECEIVER_NAME,receiverUser.name)
-                    put(Constant.KEY_RECEIVER_IMAGE,receiverUser.image)
+                    put(Constant.KEY_RECEIVER_IMAGE,receiverUser.image!!)
                     put(Constant.KEY_LAST_MESSAGE,message)
                     put(Constant.KEY_TIMESTAMP,Date())
                 }
                 repository.updateRecentConversation(conversation){
                     conversionId = it
+                }
+            }
+            if (!isReceiverAvailable){
+                try {
+
+                    val messageBody = MessageBody(
+                        data = Data(
+                            userId = pref.getString(Constant.KEY_USER_ID,null).toString(),
+                            name = pref.getString(Constant.KEY_NAME,null).toString(),
+                            fcmToken = pref.getString(Constant.KEY_FCM_TOKEN,null).toString(),
+                            message = message
+                        ),
+                        regIs = listOf(receiverUser.token!!)
+                    )
+
+                    /*val messageBody = JSONObject().apply {
+                        put(Constant.REMOTE_MSG_DATA,JSONObject().apply {
+                            put(Constant.KEY_USER_ID,pref.getString(Constant.KEY_USER_ID,null).toString())
+                            put(Constant.KEY_NAME,pref.getString(Constant.KEY_NAME,null).toString())
+                            put(Constant.KEY_FCM_TOKEN,pref.getString(Constant.KEY_FCM_TOKEN,null).toString())
+                            put(Constant.KEY_MESSAGE,message)
+                        })
+                        put(Constant.REMOTE_MSG_REGISTRATION_IDS,JSONArray().apply {
+//                                put(receiverUser.token)
+                                put("dPxqfPi7Sk2ZDbsgOGvi-P:APA91bGrpb7ae2pj3VfdenVmr4kY462ab3tj5wDRHFkmReApPF0FxyZ5OKPwSsouEasVJoHKgTHYw-WS98XCOySAfego1kFR4ggrReGzk7bP6eVyRcbL9_yJdxdMAS5vANjTQJ45f1Eh")
+                        })
+                    }*/
+                    sendNotification(messageBody)
+                }catch (e:Exception){
+                    e.printStackTrace()
                 }
             }
         }
@@ -130,6 +163,12 @@ class ChatViewModel @Inject constructor(
                 fcm = value.getString(Constant.KEY_FCM_TOKEN).toString()
             }
             availability(isReceiverAvailable,fcm)
+        }
+    }
+
+    fun sendNotification(messageBody: MessageBody) = viewModelScope.launch {
+        val response = repository.sendNotification(messageBody)
+        if (response.isSuccessful){
         }
     }
 

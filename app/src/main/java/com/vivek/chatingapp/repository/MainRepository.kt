@@ -4,9 +4,15 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.JsonObject
+import com.vivek.chatingapp.model.MessageBody
+import com.vivek.chatingapp.network.Api
 import com.vivek.chatingapp.utils.Constant
 import com.vivek.chatingapp.utils.Resource
 import kotlinx.coroutines.tasks.await
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.HashMap
@@ -14,6 +20,8 @@ import kotlin.collections.HashMap
 class MainRepository @Inject constructor(
     private val fireStore: FirebaseFirestore,
     private val fireMessage: FirebaseMessaging,
+    private val fcmApi:Api,
+    private val remoteHeader:HashMap<String,String>
 ) {
 
     suspend fun updateToken(token: String, userId: String): Boolean {
@@ -120,6 +128,10 @@ class MainRepository @Inject constructor(
             .document(receiverId)
             .addSnapshotListener(listener)
 
+    }
+
+    suspend fun sendNotification(messageBody: MessageBody): Response<JsonObject> {
+        return fcmApi.sendMessage(messageBody =  messageBody, header = remoteHeader)
     }
 
 }

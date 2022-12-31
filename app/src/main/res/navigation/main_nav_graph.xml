@@ -28,6 +28,11 @@
             app:popUpTo="@+id/usersFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+
+    <action
+        android:id="@+id/actionChatFragment"
+        app:destination="@id/chatFragment"/>
+
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.vivek.chatingapp.ui.chat.ChatFragment"

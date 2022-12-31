@@ -31,5 +31,8 @@ object Constant {
     const val REMOTE_MSG_CONTENT_TYPE = "Content-Type"
     const val REMOTE_MSG_DATA = "data"
     const val REMOTE_MSG_REGISTRATION_IDS = "registration_ids"
+    const val ACTION_SHOW_CHAT_FRAGMENT = "ACTION_SHOW_CHAT_FRAGMENT"
+    const val NOTIFICATION_CHANNEL_ID = "message_channel"
+    const val NOTIFICATION_CHANNEL_NAME = "message_channel"
 
 }

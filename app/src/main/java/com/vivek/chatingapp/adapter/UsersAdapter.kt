@@ -19,7 +19,7 @@ class UsersAdapter @Inject constructor() :ListAdapter<User,UsersAdapter.UserView
             binding.apply {
                 tvName.text = user.name
                 tvEmail.text = user.email
-                ivProfile.setImageBitmap(user.image.decodeToBitmap())
+                ivProfile.setImageBitmap(user.image?.decodeToBitmap())
             }
         }
 

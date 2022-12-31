@@ -22,11 +22,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseFirestoreInstance(): FirebaseFirestore = FirebaseFirestore.getInstance()
+    fun provideFirebaseFirestoreInstance():FirebaseFirestore = FirebaseFirestore.getInstance()
 
     @Provides
     @Singleton
-    fun provideFirebaseMessagingInstance(): FirebaseMessaging = FirebaseMessaging.getInstance()
+    fun provideFirebaseMessagingInstance():FirebaseMessaging = FirebaseMessaging.getInstance()
 
     @Provides
     @Singleton
@@ -43,9 +43,11 @@ object AppModule {
             .build()
             .create(Api::class.java)
 
+    @Singleton
+    @Provides
     fun provideRemoteMsgHeaders(@ApplicationContext context: Context) =
         HashMap<String,String>().apply {
-            put(Constant.REMOTE_MSG_AUTHORIZATION, String.format("key-%s",context.getString(R.string.firebase_server_key)))
+            put(Constant.REMOTE_MSG_AUTHORIZATION, String.format("key=%s",context.getString(R.string.firebase_server_key)))
             put(Constant.REMOTE_MSG_CONTENT_TYPE,"application/json")
         }
 

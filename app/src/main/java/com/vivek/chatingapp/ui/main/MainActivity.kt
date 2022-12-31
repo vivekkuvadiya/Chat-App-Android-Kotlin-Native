@@ -1,8 +1,12 @@
 package com.vivek.chatingapp.ui.main
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vivek.chatingapp.R
@@ -20,9 +24,16 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var documentReference:DocumentReference
 
+    private lateinit var navHostFragment: NavHostFragment
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+
+        navigateToChatFragmentIfNeeded()
 
         documentReference = fireStore.collection(Constant.KEY_COLLECTION_USERS)
             .document(pref.getString(Constant.KEY_USER_ID,null).toString())
@@ -39,5 +50,17 @@ class MainActivity : AppCompatActivity() {
         documentReference.update(Constant.KEY_AVAILABILITY,1)
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        navigateToChatFragmentIfNeeded()
+    }
+
+    private fun navigateToChatFragmentIfNeeded(){
+        if (intent?.action == Constant.ACTION_SHOW_CHAT_FRAGMENT){
+            val bundle = Bundle()
+            bundle.putSerializable(Constant.KEY_USER, intent?.getSerializableExtra(Constant.KEY_USER))
+            navHostFragment.findNavController().navigate(R.id.actionChatFragment,bundle)
+        }
+    }
 
 }
