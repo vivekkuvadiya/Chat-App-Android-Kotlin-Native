@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/_8sdp">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:padding="@dimen/_8sdp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ivProfile"
@@ -36,6 +36,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:ellipsize="end"
+            android:fontFamily="@font/dexapro_medium"
             android:maxLines="1"
             android:text="Name"
             android:textColor="@color/primary_text"
@@ -50,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:fontFamily="@font/dexapro_narrow_medium"
             android:text="tvRecentMessage"
             android:textColor="@color/secondary_text"
             android:textSize="@dimen/_12ssp"
@@ -57,6 +59,19 @@
             app:layout_constraintStart_toEndOf="@+id/ivProfile"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/_43sdp"
+        android:background="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tvRecentMessage"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="@+id/tvRecentMessage"
+        app:layout_constraintTop_toBottomOf="@id/tvRecentMessage"
+        app:layout_constraintVertical_bias="1.0" />
 
 </LinearLayout>

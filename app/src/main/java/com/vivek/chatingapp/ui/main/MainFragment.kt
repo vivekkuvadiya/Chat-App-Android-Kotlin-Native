@@ -2,7 +2,9 @@ package com.vivek.chatingapp.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,9 +21,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.main_fragment) {
 
-    private lateinit var binding:MainFragmentBinding
-    private val viewModel:MainViewModel by viewModels()
-    private lateinit var adapter:RecentConversationsAdapter
+    private lateinit var binding: MainFragmentBinding
+    private val viewModel: MainViewModel by viewModels()
+    private lateinit var adapter: RecentConversationsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,19 +42,17 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     }
 
-    private fun updateDetails(){
+    private fun updateDetails() {
         binding.ivProfile.setImageBitmap(viewModel.loadUserDetails().decodeToBitmap())
         binding.tvName.text = viewModel.getName()
     }
 
-    private fun clickListener(){
-        binding.ivSignOut.setOnClickListener { signOut() }
-        binding.fabNewChat.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_usersFragment)
-        }
+    private fun clickListener() {
+        binding.ivSearch.setOnClickListener { findNavController().navigate(R.id.action_mainFragment_to_usersFragment) }
+        binding.ivMore.setOnClickListener { showMoreMenu() }
     }
 
-    private fun setRecyclerview(){
+    private fun setRecyclerview() {
         adapter = RecentConversationsAdapter()
         binding.rvRecentConversation.apply {
             setHasFixedSize(true)
@@ -65,23 +65,35 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
-    private fun signOut(){
+    private fun signOut() {
 
-        viewModel.signOut().observe(viewLifecycleOwner){
-            if (it){
+        viewModel.signOut().observe(viewLifecycleOwner) {
+            if (it) {
                 requireContext().toast("SignOut")
                 val intent = Intent(requireActivity(), RegistrationActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
 
-            }else{
+            } else {
                 requireContext().toast("Unable to signOut")
             }
         }
 
 
+    }
 
+    fun showMoreMenu() {
+        val moreMenu = PopupMenu(requireContext(), binding.ivMore)
+        moreMenu.inflate(R.menu.menu_more)
+        moreMenu.setOnMenuItemClickListener {
+            if (it.itemId == R.id.action_sign_out){
+                signOut()
+                return@setOnMenuItemClickListener true
+            }
+            false
+        }
+        moreMenu.show()
     }
 
 }

@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/usersFragment"
-        android:name="com.vivek.chatingapp.ui.main.UsersFragment"
+        android:name="com.vivek.chatingapp.ui.users.UsersFragment"
         android:label="users_fragment"
         tools:layout="@layout/users_fragment" >
         <action

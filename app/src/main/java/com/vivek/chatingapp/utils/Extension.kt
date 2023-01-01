@@ -10,8 +10,10 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import java.io.ByteArrayOutputStream
+import java.io.UnsupportedEncodingException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 fun Context.toast(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
@@ -57,6 +59,30 @@ fun SharedPreferences.putAny(key: String, value: Any) {
         is Int -> edit().putInt(key, value).apply()
         is Boolean -> edit().putBoolean(key, value).apply()
     }
+}
+
+fun String.encodeBase64():String{
+    var data = ByteArray(0)
+    try {
+        data = this.toByteArray ()
+    } catch (e: UnsupportedEncodingException) {
+        e.printStackTrace()
+    } finally {
+        return Base64.encodeToString(data, Base64.DEFAULT)
+    }
+}
+
+fun String.decodeBase64():String{
+    val dataDec: ByteArray = Base64.decode(this, Base64.DEFAULT)
+    var decodedString = ""
+    try {
+        decodedString = String(dataDec)
+    } catch (e: UnsupportedEncodingException) {
+        e.printStackTrace()
+    } finally {
+        return decodedString!!
+    }
+
 }
 
 fun SharedPreferences.clearAll(){

@@ -14,6 +14,7 @@ import com.vivek.chatingapp.R
 import com.vivek.chatingapp.model.User
 import com.vivek.chatingapp.ui.main.MainActivity
 import com.vivek.chatingapp.utils.Constant
+import com.vivek.chatingapp.utils.decodeBase64
 import kotlin.random.Random
 
 class MessagingService : FirebaseMessagingService() {
@@ -50,7 +51,7 @@ class MessagingService : FirebaseMessagingService() {
                 it.putExtra(Constant.KEY_USER, user)
 
             },
-            0
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0
         )
 
     private fun sendNotification(user: User, message: String, contentIntent: PendingIntent) {

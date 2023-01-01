@@ -10,7 +10,8 @@
     <string name="name">Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_up">Sign Up</string>
-    <string name="select_user">Select User</string>
-    <string name="type_a_message">Type a message</string>
+    <string name="search_user">Search User</string>
+    <string name="type_a_message">Type a message...</string>
     <string name="online">Online</string>
+    <string name="sign_out">Sign out</string>
 </resources>

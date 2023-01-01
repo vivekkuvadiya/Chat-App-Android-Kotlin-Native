@@ -14,10 +14,11 @@ import java.util.*
 
 class ChatAdapter(
     private val senderId: String,
-    private val profileImage: Bitmap,
     private val chatMessages: List<ChatMessage>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var profileImage: Bitmap? = null
 
     private var chatMessagesList = mutableListOf<ChatMessage>()
 
@@ -38,14 +39,16 @@ class ChatAdapter(
         }
     }
 
-    class ReceivedMessageViewHolder(val binding: ItemReceivedMessageBinding) :
+    class ReceivedMessageViewHolder(private val binding: ItemReceivedMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun setData(message: ChatMessage, profileImage: Bitmap) {
+        fun setData(message: ChatMessage, profileImage: Bitmap?) {
             binding.apply {
                 tvMessage.text = message.message
                 tvDateTime.text = message.dateTime
-                ivProfile.setImageBitmap(profileImage)
+                profileImage?.let {
+                    ivProfile.setImageBitmap(profileImage)
+                }
             }
         }
 
@@ -86,6 +89,12 @@ class ChatAdapter(
             receivedHolder.setData(chatMessagesList[position], profileImage)
         }
     }
+
+    fun setProfileImage(profileImage: Bitmap){
+        this.profileImage = profileImage
+        notifyDataSetChanged()
+    }
+
 
     override fun getItemCount() = chatMessagesList.size
 

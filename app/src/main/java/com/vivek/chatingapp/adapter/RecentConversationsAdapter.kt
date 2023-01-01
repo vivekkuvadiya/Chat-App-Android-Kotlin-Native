@@ -16,8 +16,7 @@ class RecentConversationsAdapter :
     var onClickConversation: ((User) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ConversationViewHolder(ItemUserListRecentConversionBinding.inflate(LayoutInflater.from(
-            parent.context)))
+        ConversationViewHolder(ItemUserListRecentConversionBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: ConversationViewHolder, position: Int) {
         holder.setData(recentConversationList[position])

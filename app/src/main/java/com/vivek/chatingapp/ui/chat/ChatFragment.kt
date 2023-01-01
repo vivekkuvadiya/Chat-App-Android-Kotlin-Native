@@ -40,6 +40,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         setRecyclerview()
 
         binding.tvName.text = user.name
+        binding.ivUserImage.setImageBitmap(user.image?.decodeToBitmap())
 
         observeChat()
 
@@ -84,8 +85,11 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     private fun setRecyclerview() {
         chatAdapter = ChatAdapter(pref.getString(Constant.KEY_USER_ID, null).toString(),
-            pref.getString(Constant.KEY_IMAGE, null).toString().decodeToBitmap(),
+            /*user.image.toString().decodeToBitmap()*/
             emptyList())
+        user.image?.let {
+            chatAdapter.setProfileImage(it.decodeToBitmap())
+        }
         binding.rvChat.apply {
             adapter = chatAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -98,9 +102,14 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     override fun onResume() {
         super.onResume()
-        viewModel.listenerAvailabilityOfReceiver(user.id){availability,fcm ->
+        viewModel.listenerAvailabilityOfReceiver(user.id){availability,fcm,profileImage ->
             binding.tvAvailability.isVisible = availability
             user.token = fcm
+            if (user.image.isNullOrEmpty()){
+                user.image = profileImage
+                binding.ivUserImage.setImageBitmap(user.image?.decodeToBitmap())
+                chatAdapter.setProfileImage(user.image?.decodeToBitmap()!!)
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ import com.vivek.chatingapp.model.MessageBody
 import com.vivek.chatingapp.model.User
 import com.vivek.chatingapp.repository.MainRepository
 import com.vivek.chatingapp.utils.Constant
+import com.vivek.chatingapp.utils.encodeBase64
 import com.vivek.chatingapp.utils.getReadableDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -72,19 +73,6 @@ class ChatViewModel @Inject constructor(
                         ),
                         regIs = listOf(receiverUser.token!!)
                     )
-
-                    /*val messageBody = JSONObject().apply {
-                        put(Constant.REMOTE_MSG_DATA,JSONObject().apply {
-                            put(Constant.KEY_USER_ID,pref.getString(Constant.KEY_USER_ID,null).toString())
-                            put(Constant.KEY_NAME,pref.getString(Constant.KEY_NAME,null).toString())
-                            put(Constant.KEY_FCM_TOKEN,pref.getString(Constant.KEY_FCM_TOKEN,null).toString())
-                            put(Constant.KEY_MESSAGE,message)
-                        })
-                        put(Constant.REMOTE_MSG_REGISTRATION_IDS,JSONArray().apply {
-//                                put(receiverUser.token)
-                                put("dPxqfPi7Sk2ZDbsgOGvi-P:APA91bGrpb7ae2pj3VfdenVmr4kY462ab3tj5wDRHFkmReApPF0FxyZ5OKPwSsouEasVJoHKgTHYw-WS98XCOySAfego1kFR4ggrReGzk7bP6eVyRcbL9_yJdxdMAS5vANjTQJ45f1Eh")
-                        })
-                    }*/
                     sendNotification(messageBody)
                 }catch (e:Exception){
                     e.printStackTrace()
@@ -147,11 +135,12 @@ class ChatViewModel @Inject constructor(
 
     }
 
-    fun listenerAvailabilityOfReceiver(receiverId: String, availability:(Boolean,String)->Unit){
+    fun listenerAvailabilityOfReceiver(receiverId: String, availability:(Boolean,String,String)->Unit){
         repository.listenerAvailabilityOfReceiver(receiverId
         ) { value, error ->
 
             var fcm = ""
+            var profileImage = ""
             if (error != null)
                 return@listenerAvailabilityOfReceiver
             if (value != null){
@@ -161,8 +150,9 @@ class ChatViewModel @Inject constructor(
 
                 }
                 fcm = value.getString(Constant.KEY_FCM_TOKEN).toString()
+                profileImage = value.getString(Constant.KEY_IMAGE).toString()
             }
-            availability(isReceiverAvailable,fcm)
+            availability(isReceiverAvailable,fcm,profileImage)
         }
     }
 
