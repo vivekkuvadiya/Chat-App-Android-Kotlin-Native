@@ -2,6 +2,10 @@
 
 A native real-time messaging application built using Kotlin language with MVVM design pattern and Coroutines for managing background tasks and managing the flow of data. This app utilizes Firebase Firestore as data storage solution and Firebase Cloud Messaging for notifications.
 
+## Demo
+
+https://user-images.githubusercontent.com/65214194/215805328-fe1046e7-8bfc-41e6-8c6f-6ec6fc1d1b09.mp4
+
 ## Features
 - Real-time messaging: Users can send and receive messages in real-time.
 - Firebase Firestore: Data storage is handled by Firebase Firestore, providing a secure and fast way to store and retrieve data.
